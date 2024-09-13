@@ -7,18 +7,23 @@ This repository contains two different services for benchmarking purposes: a `ja
 ```
 ├── java-native
 │   ├── Dockerfile
-│   ├── native-hello-world
 │   ├── pom.xml
 │   ├── README.md
 │   ├── src
 │   └── target
-└── node-express
+├── node-express
+|   ├── Dockerfile
+|   ├── index.js
+|   ├── node_modules
+|   ├── package.json
+|   ├── package-lock.json
+|   └── README.md
+├──http-server-rust
+    ├── Cargo.lock
+    ├── Cargo.toml
     ├── Dockerfile
-    ├── index.js
-    ├── node_modules
-    ├── package.json
-    ├── package-lock.json
-    └── README.md
+    └── src
+
 ```
 
 ### Java-Native Service
