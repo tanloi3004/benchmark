@@ -66,21 +66,64 @@ docker run --rm -p 3001:3000 -d --name node-express --cpus="1" node-express
 
 - `--cpus="1"` limits the container to 1 CPUs. You can adjust the value depending on your performance testing needs.
 
+- `--cpus="1.5"` limits the container to 1.5 CPUs. You can adjust the value depending on your performance testing needs.
+- **Node.js**: Keep in mind that Node.js applications typically run on a single thread and will only utilize 1 CPU unless using a multi-threaded approach.
+
 ### Benchmarking with ApacheBench
 
 You can benchmark the services using `ApacheBench` to simulate load:
 
 ```bash
-ab -c 100 -n 1000000 http://localhost:3002/
-ab -c 100 -n 1000000 http://localhost:3001/
+ab -c 100 -n 100000 http://localhost:3002/
+ab -c 100 -n 100000 http://localhost:3001/
 ```
 
 - `-c 100`: This flag sets the concurrency level to 100.
-- `-n 1000000`: This flag sets the total number of requests to 1,000,000.
+- `-n 100000`: This flag sets the total number of requests to 100,000.
 
-### Results
+### Sample Results
 
-After running the benchmark, you can compare the performance results of the two services based on response time, requests per second, and other metrics provided by `ApacheBench`.
+#### Test Environment:
+- **CPU Model**: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+- **Threads per Core**: 2
+- **Cores per Socket**: 4
+- **CPU Max Frequency**: 4700 MHz
+- **CPU Min Frequency**: 400 MHz
+
+#### 1 CPU Benchmark
+
+1. **Node.js Service** (`http://localhost:3001`):
+   - **Requests per second**: 5506.24 [#/sec]
+   - **Average time per request**: 18.161 ms
+   - **Transfer rate**: 1134.59 KBytes/sec
+
+2. **Java-Native Service** (`http://localhost:3002`):
+   - **Requests per second**: 4566.26 [#/sec]
+   - **Average time per request**: 21.900 ms
+   - **Transfer rate**: 477.14 KBytes/sec
+
+#### 2 CPUs Benchmark
+
+1. **Node.js Service** (`http://localhost:3001`):
+   - **Requests per second**: 5929.64 [#/sec]
+   - **Average time per request**: 16.864 ms
+   - **Transfer rate**: 1221.83 KBytes/sec
+
+2. **Java-Native Service** (`http://localhost:3002`):
+   - **Requests per second**: 16154.66 [#/sec]
+   - **Average time per request**: 6.190 ms
+   - **Transfer rate**: 1688.04 KBytes/sec
+
+### Summary
+
+- **Node.js Performance**:
+  - On 1 CPU, Node.js handled approximately 5506 requests per second.
+  - On 2 CPUs, Node.js showed a slight improvement, handling around 5929 requests per second.
+  - Since Node.js is primarily single-threaded, the performance gains with additional CPUs are minimal unless the application leverages multi-threading.
+
+- **Java-Native Performance**:
+  - Java-native demonstrated significantly better performance with 16154 requests per second on 2 CPUs, compared to 4566 requests per second on 1 CPU.
+  - The Java-native application takes advantage of multi-threading and scales more efficiently with additional CPUs.
 
 ## Notes
 
