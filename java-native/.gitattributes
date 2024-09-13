@@ -1,0 +1,14 @@
+# Handle line endings automatically for files detected as text
+* text=auto
+
+# Java files should use Unix-style LF for line endings
+*.java text eol=lf
+
+# Markdown files should use Unix-style LF for line endings
+*.md text eol=lf
+
+# Binary files - do not modify these
+*.jar binary
+*.png binary
+*.jpg binary
+*.class binary
