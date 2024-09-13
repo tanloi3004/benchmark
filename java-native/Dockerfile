@@ -11,7 +11,7 @@ COPY src ./src
 RUN mvn clean package
 
 # Step 2: Build the final lightweight image
-FROM alpine:3.17.0
+FROM debian:bookworm-slim
 
 WORKDIR /app
 
