@@ -45,6 +45,8 @@ To build the Docker images for both services, run the following commands:
 ```bash
 docker build -t node-express node-express
 docker build -t java-native java-native
+docker build -t java-quarkus-native java-quarkus-native
+
 ```
 
 ### Running the Containers
@@ -54,6 +56,8 @@ After building the images, you can run the containers on different ports:
 ```bash
 docker run --rm -p 3002:3000 -d --name java-native java-native
 docker run --rm -p 3001:3000 -d --name node-express node-express
+docker run --rm -p 3004:3000 -d --name java-quarkus-native java-quarkus-native
+
 ```
 
 - The `java-native` service will be accessible on port `3002`.
